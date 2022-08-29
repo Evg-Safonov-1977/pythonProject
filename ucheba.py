@@ -42,109 +42,109 @@
 #     print(event_obj.timestamp)
 
 
-class Node: # Класс элемента
-    def __init__(self, value = None, next_ = None): # инициализируем
-        self.value = value # значением
-        self.next = next_ # и ссылкой на следующий элемент
-    def __str__(self):
-        return "Node value = " + str(self.value)
-
-class LinkedList: # Класс списка
-    def __init__(self): # инициализируем пустым
-        self.first = None
-        self.last = None
-
-    def clear(self): # Очищаем список
-        self.__init__()
-
-    def __str__(self): # Функция печати
-        R = ''
-
-        pointer = self.first # Берём первый указатель
-        while pointer is not None: # пока указатель не станет None
-            R += str(pointer.value) # добавляем значение в строку
-            pointer = pointer.next # идём дальше по указателю
-            if pointer is not None: # если он существует добавляем пробел
-                R += ' '
-        return R
-
-    def pushleft(self, value): # добавим метод pushleft, который вставляет новый элемент в начало списка
-        if self.first is None:
-            self.first = Node(value)
-            self.last = self.first
-        else:
-            new_node = Node(value, self.first)
-            self.first = new_node
-
-    def pushright(self, value): # pushright, которая добавляет элемент в правую часть списка
-        if self.first is None:
-            self.first = Node(value)
-            self.last = self.first
-        else:
-            new_node = Node(value)
-            self.last.next = new_node
-            self.last = new_node
-
-    def popleft(self):
-        if self.first is None:  # если список пустой, возвращаем None
-            return None
-        elif self.first == self.last:  # если список содержит только один элемент
-            node = self.first  # сохраняем его
-            self.__init__()  # очищаем
-            return node  # и возвращаем сохранённый элемент
-        else:
-            node = self.first  # сохраняем первый элемент
-            self.first = self.first.next  # меняем указатель на первый элемент
-            return node  # возвращаем сохранённый
-
-    def popright(self):
-        if self.first is None:  # если список пустой, возвращаем None
-            return None
-        elif self.first == self.last:  # если список содержит только один элемент
-            node = self.first  # сохраняем его
-            self.__init__()  # очищаем
-            return node  # и возвращаем сохранённый элемент
-        else:
-            node = self.last  # сохраняем последний
-            pointer = self.first  # создаём указатель
-            while pointer.next is not node:  # пока не найдем предпоследний
-                pointer = pointer.next
-            pointer.next = None  # обнуляем указатели, чтобы
-            self.last = pointer  # предпоследний стал последним
-            return node  # возвращаем сохранённый
-
-    def __iter__(self):  # объявляем класс как итератор
-        self.current = self.first  # в текущий элемент помещаем первый
-        return self  # возвращаем итератор
-
-    def __next__(self):  # метод перехода
-        if self.current is None:  # если текущий стал последним
-            raise StopIteration  # вызываем исключение
-        else:
-            node = self.current  # сохраняем текущий элемент
-            self.current = self.current.next  # совершаем переход
-            return node  # и возвращаем сохранённый
-
-    def __len__(self):
-        count = 0
-        pointer = self.first
-        while pointer is not None:
-            count += 1
-            pointer = pointer.next
-        return count
-        print(count)
-
-LL = LinkedList()
-
-LL.pushright(1)
-LL.pushleft(2)
-LL.pushright(3)
-LL.popright()
-LL.pushleft(4)
-LL.pushright(5)
-LL.popleft()
-
-print(LL)
+# class Node: # Класс элемента
+#     def __init__(self, value = None, next_ = None): # инициализируем
+#         self.value = value # значением
+#         self.next = next_ # и ссылкой на следующий элемент
+#     def __str__(self):
+#         return "Node value = " + str(self.value)
+#
+# class LinkedList: # Класс списка
+#     def __init__(self): # инициализируем пустым
+#         self.first = None
+#         self.last = None
+#
+#     def clear(self): # Очищаем список
+#         self.__init__()
+#
+#     def __str__(self): # Функция печати
+#         R = ''
+#
+#         pointer = self.first # Берём первый указатель
+#         while pointer is not None: # пока указатель не станет None
+#             R += str(pointer.value) # добавляем значение в строку
+#             pointer = pointer.next # идём дальше по указателю
+#             if pointer is not None: # если он существует добавляем пробел
+#                 R += ' '
+#         return R
+#
+#     def pushleft(self, value): # добавим метод pushleft, который вставляет новый элемент в начало списка
+#         if self.first is None:
+#             self.first = Node(value)
+#             self.last = self.first
+#         else:
+#             new_node = Node(value, self.first)
+#             self.first = new_node
+#
+#     def pushright(self, value): # pushright, которая добавляет элемент в правую часть списка
+#         if self.first is None:
+#             self.first = Node(value)
+#             self.last = self.first
+#         else:
+#             new_node = Node(value)
+#             self.last.next = new_node
+#             self.last = new_node
+#
+#     def popleft(self):
+#         if self.first is None:  # если список пустой, возвращаем None
+#             return None
+#         elif self.first == self.last:  # если список содержит только один элемент
+#             node = self.first  # сохраняем его
+#             self.__init__()  # очищаем
+#             return node  # и возвращаем сохранённый элемент
+#         else:
+#             node = self.first  # сохраняем первый элемент
+#             self.first = self.first.next  # меняем указатель на первый элемент
+#             return node  # возвращаем сохранённый
+#
+#     def popright(self):
+#         if self.first is None:  # если список пустой, возвращаем None
+#             return None
+#         elif self.first == self.last:  # если список содержит только один элемент
+#             node = self.first  # сохраняем его
+#             self.__init__()  # очищаем
+#             return node  # и возвращаем сохранённый элемент
+#         else:
+#             node = self.last  # сохраняем последний
+#             pointer = self.first  # создаём указатель
+#             while pointer.next is not node:  # пока не найдем предпоследний
+#                 pointer = pointer.next
+#             pointer.next = None  # обнуляем указатели, чтобы
+#             self.last = pointer  # предпоследний стал последним
+#             return node  # возвращаем сохранённый
+#
+#     def __iter__(self):  # объявляем класс как итератор
+#         self.current = self.first  # в текущий элемент помещаем первый
+#         return self  # возвращаем итератор
+#
+#     def __next__(self):  # метод перехода
+#         if self.current is None:  # если текущий стал последним
+#             raise StopIteration  # вызываем исключение
+#         else:
+#             node = self.current  # сохраняем текущий элемент
+#             self.current = self.current.next  # совершаем переход
+#             return node  # и возвращаем сохранённый
+#
+#     def __len__(self):
+#         count = 0
+#         pointer = self.first
+#         while pointer is not None:
+#             count += 1
+#             pointer = pointer.next
+#         return count
+#         print(count)
+#
+# LL = LinkedList()
+#
+# LL.pushright(1)
+# LL.pushleft(2)
+# LL.pushright(3)
+# LL.popright()
+# LL.pushleft(4)
+# LL.pushright(5)
+# LL.popleft()
+#
+# print(LL)
 
 # import random  # модуль, с помощью которого перемешиваем массив
 #
@@ -178,26 +178,99 @@ print(LL)
 #         return n * fact(n - 1)
 # print("The factorial of ",n," is: ",fact(n))
 
-array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
-counter = 0
-for i in range(len(array)):  # проходим по всему массиву
-    idx_min = i  # сохраняем индекс предположительно минимального элемента
-    for j in range(i, len(array)):
-        if array[j] < array[idx_min]:
-            counter += 1
-            idx_min = j
-    if i != idx_min:  # если индекс не совпадает с минимальным, меняем
-        array[i], array[idx_min] = array[idx_min], array[i]
+# array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+# counter = 0
+# for i in range(len(array)):  # проходим по всему массиву
+#     idx_min = i  # сохраняем индекс предположительно минимального элемента
+#     for j in range(i, len(array)):
+#         if array[j] < array[idx_min]:
+#             counter += 1
+#             idx_min = j
+#     if i != idx_min:  # если индекс не совпадает с минимальным, меняем
+#         array[i], array[idx_min] = array[idx_min], array[i]
+#
+# print(counter)
+# print(array)
+#
+# for i in range(1, len(array)):
+#     x = array[i]
+#     idx = i
+#     while idx > 0 and array[idx-1] > x:
+#         array[idx] = array[idx-1]
+#         counter += 1
+#         idx -= 1
+#     array[idx] = x
+# print(array)
 
-print(counter)
-print(array)
+# Модуль 18
 
-for i in range(1, len(array)):
-    x = array[i]
-    idx = i
-    while idx > 0 and array[idx-1] > x:
-        array[idx] = array[idx-1]
-        counter += 1
-        idx -= 1
-    array[idx] = x
-print(array)
+# import requests
+#
+# r = requests.get(
+#     'https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1&format=html')  # делаем запрос на сервер по переданному адресу
+# print(r.content)
+
+
+# import requests
+#
+# r = requests.get('https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1&format=html')
+# print(r.status_code)  # узнаем статус полученного ответа
+
+
+# import requests
+#
+# r = requests.get('https://baconipsum.com/api/?type=meat-and-filler')  # попробуем поймать json ответ
+# print(r.content)
+
+
+# import requests
+# import json  # импортируем необходимую библиотеку
+#
+# r = requests.get('https://baconipsum.com/api/?type=meat-and-filler')
+# texts = json.loads(r.content)  # делаем из полученных байтов python-объект для удобной работы
+# print(type(texts))  # проверяем тип сконвертированных данных
+#
+# for text in texts:  # выводим полученный текст. Но для того чтобы он влез в консоль, оставим только первые 50 символов.
+#     print(text[:50], '\n')
+
+
+# import requests
+# import json
+#
+# r = requests.get('https://api.github.com')
+# print(r.content)
+
+
+# import requests
+# import json
+#
+# r = requests.get('https://api.github.com')
+# d = json.loads(r.content) # делаем из полученных байтов python-объект для удобной работы
+#
+# print(type(d))
+# print(d['following_url']) # обращаемся к полученному объекту как к словарю и попробуем напечатать одно из его значений
+
+
+# import requests
+#
+# r = requests.post('https://httpbin.org/post', data={'key': 'value'})  # отправляем пост запрос
+# print(r.content)  # содержимое ответа и его обработка происходит так же, как и с гет-запросами, разницы никакой нет
+
+
+# import requests
+# import json
+#
+# data = {'key': 'value'}
+#
+# r = requests.post('https://httpbin.org/post', json=json.dumps(data)) # отправляем пост запрос, но только в этот раз тип передаваемых данных будет JSON
+# print(r.content)
+
+# Напишите программу, которая отправляет запрос на генерацию случайных текстов (используйте этот сервис). Выведите первый из сгенерированных текстов:
+import requests
+import json
+
+r = requests.get('https://baconipsum.com/api/?type=meat-and-filler')
+
+r = json.loads(r.content)
+
+print(r[0])
